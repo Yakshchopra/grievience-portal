@@ -6,7 +6,7 @@ import illustration from '../assets/illustration.svg';
 
 const Login = () => {
   return (
-    <div className='flex md:flex-row flex-col p-3 h-screen relative'>
+    <div className='flex bg-light md:flex-row flex-col p-3 h-screen relative'>
       <div className='h-20 md:hidden w-full rounded-lg bg-darkBlue flex items-center px-5'>
         <img src={srmLogo} alt='srm-logo' className='h-7' />
       </div>
