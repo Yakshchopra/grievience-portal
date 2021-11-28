@@ -1,10 +1,46 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Button from './shared/Button';
 import Input from './shared/Input';
 import srmLogo from '../assets/srmLogo.png';
 import illustration from '../assets/illustration.svg';
+import { useFormik } from 'formik';
+import { RiErrorWarningFill } from 'react-icons/ri';
 
 const Login = () => {
+  const [user, setUser] = useState({
+    Reg: '',
+    password: '',
+  });
+
+  const validate = (values: any) => {
+    const errors = {} as any;
+
+    if (!values.registrationNumber) {
+      errors.registrationNumber = 'Required';
+    } else if (!/RA[0-9]{13}$/i.test(values.registrationNumber)) {
+      errors.registrationNumber = 'Invalid Registration Number';
+    }
+
+    if (!values.password) {
+      errors.password = 'Required';
+    } else if (values.password === '12345678') {
+      errors.password = 'Must not be 12345678 !!!';
+    }
+
+    return errors;
+  };
+
+  const formik = useFormik({
+    initialValues: {
+      registrationNumber: '',
+      password: '',
+    },
+    validate,
+    onSubmit: async (values) => {
+      console.log(values);
+    },
+  });
+
   return (
     <div className='flex bg-light md:flex-row flex-col p-3 h-screen relative'>
       <div className='h-20 md:hidden w-full rounded-lg bg-darkBlue flex items-center px-5'>
@@ -30,9 +66,43 @@ const Login = () => {
           <p className='text-gray-600 md:text-lg text-sm mt-1'>
             Login to get your griviences resolved
           </p>
-          <Input text='Email' />
-          <Input text='Password' />
-          <Button name='Login' />
+          <form onSubmit={formik.handleSubmit}>
+            <div className='relative'>
+              <Input
+                text='Registration Number'
+                name='registrationNumber'
+                value={formik.values.registrationNumber}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                type='text'
+              />
+              {formik.touched.registrationNumber &&
+                formik.errors.registrationNumber && (
+                  <p className='text-sm flex items-center gap-1 text-red-500 mt-1'>
+                    <RiErrorWarningFill />
+                    {formik.errors.registrationNumber}
+                  </p>
+                )}
+            </div>
+            <div className='relative'>
+              <Input
+                text='Password'
+                value={formik.values.password}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                type='password'
+                name='password'
+              />
+            </div>
+            {formik.touched.password && formik.errors.password && (
+              <p className='text-sm flex items-center gap-1 text-red-500 mt-1'>
+                <RiErrorWarningFill />
+                {formik.errors.password}
+              </p>
+            )}
+            <Button name='Login' type='submit' />
+          </form>
+
           <p className='mt-5'>
             Not registered yet?{' '}
             <span className='text-primary cursor-pointer'>Register</span>
