@@ -4,7 +4,7 @@ import Input from './shared/Input';
 import srmLogo from '../assets/srmLogo.png';
 import illustration from '../assets/illustration.svg';
 
-const Login = () => {
+const Register = () => {
   return (
     <div className='flex bg-light md:flex-row flex-col p-3 h-screen relative'>
       <div className='h-20 md:hidden w-full rounded-lg bg-darkBlue flex items-center px-5'>
@@ -26,16 +26,30 @@ const Login = () => {
       </div>
       <div className='w-full flex h-full justify-center items-center'>
         <div className='sm:w-1/2 w-3/4'>
-          <p className='sm:text-2xl text-xl font-semibold'>Student Login</p>
-          <p className='text-gray-600 md:text-lg text-sm mt-1'>
-            Login to get your griviences resolved
+          <p className='sm:text-2xl text-xl font-semibold'>
+            Student Registration
           </p>
-          <Input text='Email' />
-          <Input text='Password' />
-          <Button name='Login' />
+          <p className='text-gray-600 md:text-lg text-sm mt-1'>
+            Register to get your griviences resolved
+          </p>
+          <Input text='Full Name' />
+
+          <div className='flex gap-3'>
+            <Input text='College Email' />
+            <Input text='Personal Email' />
+          </div>
+
+          <Input text='Registeration Number' />
+
+          <div className='flex gap-3'>
+            <Input text='Contact Number' />
+            <Input text='Password' />
+          </div>
+
+          <Button name='Register' />
           <p className='mt-5'>
-            Not registered yet?{' '}
-            <span className='text-primary cursor-pointer'>Register</span>
+            Already registered?{' '}
+            <span className='text-primary cursor-pointer'>Login</span>
           </p>
         </div>
       </div>
@@ -43,4 +57,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;

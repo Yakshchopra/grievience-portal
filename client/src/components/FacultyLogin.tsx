@@ -4,7 +4,7 @@ import Input from './shared/Input';
 import srmLogo from '../assets/srmLogo.png';
 import illustration from '../assets/illustration.svg';
 
-const Login = () => {
+const FacultyLogin = () => {
   return (
     <div className='flex bg-light md:flex-row flex-col p-3 h-screen relative'>
       <div className='h-20 md:hidden w-full rounded-lg bg-darkBlue flex items-center px-5'>
@@ -18,29 +18,24 @@ const Login = () => {
             Placement Grievience Portal
           </p>
           <p className='mt-3 mb-4'>
-            Drop in all your placement related grieviences here to get them
-            resolved
+            Help students get their problems resolved.
           </p>
-          <Button name='Faculty Login' />
+          <Button name='Student Login' />
         </div>
       </div>
       <div className='w-full flex h-full justify-center items-center'>
         <div className='sm:w-1/2 w-3/4'>
-          <p className='sm:text-2xl text-xl font-semibold'>Student Login</p>
+          <p className='sm:text-2xl text-xl font-semibold'>Faculty Login</p>
           <p className='text-gray-600 md:text-lg text-sm mt-1'>
-            Login to get your griviences resolved
+            Glad to see you here!
           </p>
           <Input text='Email' />
           <Input text='Password' />
           <Button name='Login' />
-          <p className='mt-5'>
-            Not registered yet?{' '}
-            <span className='text-primary cursor-pointer'>Register</span>
-          </p>
         </div>
       </div>
     </div>
   );
 };
 
-export default Login;
+export default FacultyLogin;

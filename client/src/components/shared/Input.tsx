@@ -4,7 +4,9 @@ const Input = (props: any) => {
   return (
     <input
       placeholder={props.text}
-      className='rounded-lg p-4 w-full focus:outline-none focus:ring-2 focus:ring-primary mt-6 focus:border-transparent outline-none bg-white border-2 border-border'
+      className={`rounded-lg ${
+        props.size === 'sm' ? 'p-3 mt-4' : 'p-4 mt-6'
+      } w-full focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent outline-none bg-white border-2 border-border`}
     />
   );
 };

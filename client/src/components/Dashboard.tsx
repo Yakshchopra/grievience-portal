@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import srmLogo from '../assets/srmLogo.png';
-import Button from './shared/Button';
+import { BiTimeFive } from 'react-icons/bi';
+import Card from './shared/Card';
+import CardList from './CardList';
+import Form from './Form';
 
 const Dashboard = () => {
+  const [active, setActive] = useState('list');
+
   return (
-    <div className='bg-light h-screen w-screen p-5'>
+    <div className='bg-blue-50 flex flex-col gap-4 h-screen w-screen overflow-hidden p-5'>
       {/* Navbar */}
       <div className='h-20 bg-darkBlue rounded-lg w-full px-5 flex justify-between items-center'>
         <img src={srmLogo} alt='srm-logo' />
@@ -13,6 +18,32 @@ const Dashboard = () => {
         </button>
       </div>
       {/* Navbar end */}
+      <div className='h-full w-full rounded-lg bg-white p-7'>
+        <div className='flex gap-8'>
+          <span
+            onClick={() => setActive('list')}
+            className='text-lg cursor-pointer relative font-semibold'
+          >
+            All grieviences
+            {active === 'list' && (
+              <div className='absolute top-full w-full h-1 mt-1 rounded-full bg-primary'></div>
+            )}
+          </span>
+          <span
+            onClick={() => setActive('form')}
+            className='text-lg cursor-pointer relative font-semibold'
+          >
+            Add grievience
+            {active === 'form' && (
+              <div className='absolute top-full w-full h-1 mt-1 rounded-full bg-primary'></div>
+            )}
+          </span>
+        </div>
+
+        {/* Card List */}
+        {active === 'list' && <CardList />}
+        {active === 'form' && <Form />}
+      </div>
     </div>
   );
 };
