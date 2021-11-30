@@ -3,8 +3,35 @@ import Button from './shared/Button';
 import Input from './shared/Input';
 import srmLogo from '../assets/srmLogo.png';
 import illustration from '../assets/illustration.svg';
+import { useFormik } from 'formik';
+import { RiErrorWarningFill } from 'react-icons/ri';
 
 const FacultyLogin = () => {
+  const validate = (values: any) => {
+    const errors = {} as any;
+
+    if (!values.email) {
+      errors.email = 'Required';
+    }
+
+    if (!values.password) {
+      errors.password = 'Required';
+    }
+
+    return errors;
+  };
+
+  const formik = useFormik({
+    initialValues: {
+      email: '',
+      password: '',
+    },
+    validate,
+    onSubmit: async (values) => {
+      console.log(values);
+    },
+  });
+
   return (
     <div className='flex bg-light md:flex-row flex-col p-3 h-screen relative'>
       <div className='h-20 md:hidden w-full rounded-lg bg-darkBlue flex items-center px-5'>
@@ -29,9 +56,41 @@ const FacultyLogin = () => {
           <p className='text-gray-600 md:text-lg text-sm mt-1'>
             Glad to see you here!
           </p>
-          <Input text='Email' />
-          <Input text='Password' />
-          <Button name='Login' />
+          <form onSubmit={formik.handleSubmit}>
+            <div className='relative'>
+              <Input
+                text='Email'
+                name='email'
+                value={formik.values.email}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                type='text'
+              />
+              {formik.touched.email && formik.errors.email && (
+                <p className='text-sm flex items-center gap-1 text-red-500 mt-1'>
+                  <RiErrorWarningFill />
+                  {formik.errors.email}
+                </p>
+              )}
+            </div>
+            <div className='relative'>
+              <Input
+                text='Password'
+                value={formik.values.password}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                type='password'
+                name='password'
+              />
+            </div>
+            {formik.touched.password && formik.errors.password && (
+              <p className='text-sm flex items-center gap-1 text-red-500 mt-1'>
+                <RiErrorWarningFill />
+                {formik.errors.password}
+              </p>
+            )}
+            <Button name='Login' type='submit' />
+          </form>
         </div>
       </div>
     </div>

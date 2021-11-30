@@ -7,11 +7,6 @@ import { useFormik } from 'formik';
 import { RiErrorWarningFill } from 'react-icons/ri';
 
 const Login = () => {
-  const [user, setUser] = useState({
-    Reg: '',
-    password: '',
-  });
-
   const validate = (values: any) => {
     const errors = {} as any;
 

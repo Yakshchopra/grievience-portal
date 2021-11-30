@@ -19,38 +19,41 @@ const Modal = (props: any) => {
               <p className='text-2xl text-center font-medium text-white'>A</p>
             </div>
             <div>
-              <p className='text-md font-semibold'>Amazon</p>
-              <p className='text-xs'>SDE - Intern</p>
+              <p className='text-md font-semibold'>
+                {props.modalContent.companyName}
+              </p>
+              <p className='text-xs'>{props.modalContent.jobTitle}</p>
             </div>
           </div>
 
           <div className='flex items-center gap-1 mt-5 text-gray-400'>
             <BiTimeFive />
-            <span className='text-xs'>13 Nov 2021</span>
+            <span className='text-xs'>{props.modalContent.time}</span>
           </div>
 
           <p className='text-sm mt-5'>
-            <span className='font-semibold'>Name:</span> Yaksh Chopra
+            <span className='font-semibold'>Name:</span>{' '}
+            {props.modalContent.name}
           </p>
 
           <p className='text-sm mt-2'>
-            <span className='font-semibold'>Contact:</span> 9419120011
+            <span className='font-semibold'>Contact:</span>{' '}
+            {props.modalContent.contact}
           </p>
           <p className='text-sm mt-2'>
             <span className='font-semibold'>Personal Email:</span>{' '}
-            yaksh@ghghgh.com
+            {props.modalContent.personalEmail}
           </p>
           <p className='text-sm mt-2'>
             <span className='font-semibold'>College Email:</span>{' '}
-            yaksh@ghghgh.com
+            {props.modalContent.collegeEmail}
           </p>
 
-          <p className='text-sm font-semibold mt-5'>Not recieved test link</p>
-
-          <p className='text-sm mt-5'>
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has
+          <p className='text-sm font-semibold mt-5'>
+            {props.modalContent.issue}
           </p>
+
+          <p className='text-sm mt-5'>{props.modalContent.description}</p>
         </div>
 
         <Button name='Resolve' size='sm' />
