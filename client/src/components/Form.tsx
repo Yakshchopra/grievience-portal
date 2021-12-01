@@ -3,6 +3,7 @@ import Button from './shared/Button';
 import Input from './shared/Input';
 import { useFormik } from 'formik';
 import { RiErrorWarningFill } from 'react-icons/ri';
+import http  from '../http';
 
 const Form = () => {
   const validate = (values: any) => {
@@ -33,8 +34,18 @@ const Form = () => {
     validate,
     onSubmit: async (values) => {
       console.log(values);
+      submit(values);
     },
   });
+  const submit = async (body: any) => {
+    try {
+      let regNo = localStorage.getItem('regNo')
+      let response = await http('POST', 'submitform/'+ regNo, false, body);
+      return response;
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
   return (
     <div className='mt-8'>

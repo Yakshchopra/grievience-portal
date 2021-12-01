@@ -5,8 +5,11 @@ import srmLogo from '../assets/srmLogo.png';
 import illustration from '../assets/illustration.svg';
 import { useFormik } from 'formik';
 import { RiErrorWarningFill } from 'react-icons/ri';
+import http from '../http';
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  
   const validate = (values: any) => {
     const errors = {} as any;
 
@@ -32,9 +35,22 @@ const Login = () => {
     },
     validate,
     onSubmit: async (values) => {
-      console.log(values);
+      await formlogin(values);
+      naviget('/dashboard');
     },
   });
+  const naviget = useNavigate()
+  async function formlogin(BODY: any){
+    try {
+      let response: any = await http('POST', 'login', true, BODY);
+      console.log(response)
+      
+      localStorage.setItem('token', response.data.message.token);
+      localStorage.setItem('regNo', response.data.message.registrationNumber);
+    } catch(err) {
+      console.log(err);
+    }
+  }
 
   return (
     <div className='flex bg-light md:flex-row flex-col p-3 h-screen relative'>
@@ -52,7 +68,9 @@ const Login = () => {
             Drop in all your placement related grieviences here to get them
             resolved
           </p>
-          <Button name='Faculty Login' />
+          <Button name='Faculty Login' onClick={() => {
+            naviget('/facultyLogin')
+          }}/>
         </div>
       </div>
       <div className='w-full flex h-full justify-center items-center'>
@@ -100,7 +118,7 @@ const Login = () => {
 
           <p className='mt-5'>
             Not registered yet?{' '}
-            <span className='text-primary cursor-pointer'>Register</span>
+            <span className='text-primary cursor-pointer' onClick={()=>{naviget('/register')}}>Register</span>
           </p>
         </div>
       </div>

@@ -1,24 +1,19 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { BiTimeFive } from 'react-icons/bi';
 import { MdOutlineError } from 'react-icons/md';
 import { AiFillCheckCircle } from 'react-icons/ai'
 
 const Card = (props: any) => {
+  const [allgrive, setAllgrive] = useState([])
   return (
+    
     <div
       onClick={() => {
-        props.type === 'faculty' && props.setModal(true);
-        props.type === 'faculty' && props.setModalContent(props.obj);
+         props.setModal(true);
+        props.setModalContent(props.obj);
       }}
       className='w-56 rounded-lg flex relative flex-col justify-between gap-8 bg-light border cursor-pointer border-gray-200 p-5'
-    >
-      {props.type !== 'faculty' && (
-        !props.status?< div className='absolute cursor-pointer text-red-500 left-full bottom-full transform -translate-x-1/2 translate-y-1/2'>
-      <MdOutlineError className='text-2xl' />
-    </div>: < div className='absolute cursor-pointer text-green-500 left-full bottom-full transform -translate-x-1/2 translate-y-1/2'>
-      <AiFillCheckCircle className='text-2xl' />
-    </div>
-      )}
+    >jhfjdh
       <div>
         <div className='flex items-center gap-3'>
           <div className=' h-10 w-10 rounded-lg bg-red-400 flex items-center justify-center'>
@@ -38,7 +33,8 @@ const Card = (props: any) => {
         <BiTimeFive />
         <span className='text-xs'>{props.obj.timestamp??""}</span>
       </div>
-    </div>
+      </div>
+    
   );
 };
 

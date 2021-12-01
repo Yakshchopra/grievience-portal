@@ -5,6 +5,7 @@ import srmLogo from '../assets/srmLogo.png';
 import illustration from '../assets/illustration.svg';
 import { Formik, useFormik } from 'formik';
 import { RiErrorWarningFill } from 'react-icons/ri';
+import htttp from '../http';
 
 const Register = () => {
   const validate = (values: any) => {
@@ -52,9 +53,17 @@ const Register = () => {
     },
     validate,
     onSubmit: async (values) => {
-      console.log(values);
+      await formsubmit(values);
     },
   });
+  async function formsubmit(BODY: any){
+    try {
+      let response = await htttp('POST', 'signup',true, BODY);
+      console.log(response);
+    } catch(err) {
+      console.log(err);
+    }
+  }
 
   return (
     <div className='flex bg-light md:flex-row flex-col p-3 h-screen relative'>
