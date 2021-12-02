@@ -5,6 +5,7 @@ import srmLogo from '../assets/srmLogo.png';
 import illustration from '../assets/illustration.svg';
 import { useFormik } from 'formik';
 import { RiErrorWarningFill } from 'react-icons/ri';
+import http from '../http';
 
 const FacultyLogin = () => {
   const validate = (values: any) => {
@@ -23,15 +24,27 @@ const FacultyLogin = () => {
 
   const formik = useFormik({
     initialValues: {
-      email: '',
+      registrationNumber: '',
       password: '',
     },
     validate,
     onSubmit: async (values) => {
       console.log(values);
+      formlogin(values)
     },
   });
 
+  async function formlogin(BODY: any){
+    try {
+      let response: any = await http('POST', 'login', true, BODY);
+      console.log(response)
+      
+      localStorage.setItem('token', response.data.message.token);
+      localStorage.setItem('regNo', response.data.message.registrationNumber);
+    } catch(err) {
+      console.log(err);
+    }
+  }
   return (
     <div className='flex bg-light md:flex-row flex-col p-3 h-screen relative'>
       <div className='h-20 md:hidden w-full rounded-lg bg-darkBlue flex items-center px-5'>
@@ -61,15 +74,15 @@ const FacultyLogin = () => {
               <Input
                 text='Email'
                 name='email'
-                value={formik.values.email}
+                value={formik.values.registrationNumber}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 type='text'
               />
-              {formik.touched.email && formik.errors.email && (
+              {formik.touched.registrationNumber && formik.errors.registrationNumber && (
                 <p className='text-sm flex items-center gap-1 text-red-500 mt-1'>
                   <RiErrorWarningFill />
-                  {formik.errors.email}
+                  {formik.errors.registrationNumber}
                 </p>
               )}
             </div>

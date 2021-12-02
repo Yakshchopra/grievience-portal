@@ -92,7 +92,11 @@ const Faculty = () => {
            return (
               <Card
                 det = {item}
-                obj={item1}
+               obj={item1}
+               onClick={() => {
+                 setModalContent(item1)
+                 setModal(true)
+               }}
               />
             );
         }));

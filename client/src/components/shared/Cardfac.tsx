@@ -8,10 +8,7 @@ const Card = (props: any) => {
   return (
     
     <div
-      onClick={() => {
-         props.setModal(true);
-        props.setModalContent(props.obj);
-      }}
+      
       className='w-56 rounded-lg flex relative flex-col justify-between gap-8 bg-light border cursor-pointer border-gray-200 p-5'
     >jhfjdh
       <div>
