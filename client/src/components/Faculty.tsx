@@ -5,26 +5,32 @@ import Modal from './shared/Modal';
 import http from '../http';
 const list = [
   {
-    forms: [{
-      companyName: 'Amazon',
-      jobTitle: 'SDE Intern',
-      issue: 'Test link not recieved',
-      description: 'Diya hi nahi test link mai dhoondhta reh gya aaya hi nahi',
-      time: '13 Nov 2021',
-      name: 'Yaksh Chopra'
-    }],
+    forms: [
+      {
+        companyName: 'Amazon',
+        jobTitle: 'SDE Intern',
+        issue: 'Test link not recieved',
+        description:
+          'Diya hi nahi test link mai dhoondhta reh gya aaya hi nahi',
+        time: '13 Nov 2021',
+        name: 'Yaksh Chopra',
+      },
+    ],
     personalEmail: 'yakshchopra@gmail.com',
     collegeEmail: 'yc3355@srmist.edu.in',
     contact: '9419120011',
   },
   {
-    forms: [{
-      companyName: 'Foogle',
-      jobTitle: 'CEO',
-      issue: 'Aise hi man kiya',
-      description: 'Diya hi nahi test link mai dhoondhta reh gya aaya hi nahi',
-      time: '13 Nov 2021'
-    }],
+    forms: [
+      {
+        companyName: 'Foogle',
+        jobTitle: 'CEO',
+        issue: 'Aise hi man kiya',
+        description:
+          'Diya hi nahi test link mai dhoondhta reh gya aaya hi nahi',
+        time: '13 Nov 2021',
+      },
+    ],
     name: 'Yaksh Chopra',
     personalEmail: 'yakshchopra@gmail.com',
     collegeEmail: 'yc3355@srmist.edu.in',
@@ -45,19 +51,19 @@ const Faculty = () => {
     personalEmail: '',
     collegeEmail: '',
   });
- const [allforms, setAllforms] = useState(list)
+  const [allforms, setAllforms] = useState(list);
   const retrieveform = async () => {
     try {
-      let response: any  = await http('GET', 'getallgrieve', false);
+      let response: any = await http('GET', 'getallgrieve', false);
       console.log(response);
       setAllforms(response.data);
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
-  }
-  useEffect( () => {
-    retrieveform()
-  }, [])
+  };
+  useEffect(() => {
+    retrieveform();
+  }, []);
 
   return (
     <div className='bg-blue-50 flex flex-col gap-4 h-screen w-screen overflow-hidden p-5'>
@@ -81,7 +87,7 @@ const Faculty = () => {
         <div className='mt-8 flex gap-4 flex-wrap'>
           {/* Card */}
           {/* <Card type='faculty' setModal={setModal} /> */}
-          {allforms.map((item: any) => {
+          {/* {allforms.map((item: any) => {
             console.log(item)
             return (item.forms.map((item1: any) => {
               item.name = item1.name;
@@ -101,6 +107,16 @@ const Faculty = () => {
             );
         }));
            
+          })} */}
+          {allforms.map((item: any) => {
+            return (
+              <Card
+                type='faculty'
+                obj={item}
+                setModal={setModal}
+                setModalContent={setModalContent}
+              />
+            );
           })}
 
           {/* Card */}
