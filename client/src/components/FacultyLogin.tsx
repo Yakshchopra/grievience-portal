@@ -9,7 +9,7 @@ import http from '../http';
 import { useNavigate } from 'react-router';
 
 const FacultyLogin = () => {
-  let navigate = useNavigate()
+  let navigate = useNavigate();
   const validate = (values: any) => {
     const errors = {} as any;
 
@@ -26,18 +26,16 @@ const FacultyLogin = () => {
 
   const formik = useFormik({
     initialValues: {
-      registrationNumber: '',
+      email: '',
       password: '',
     },
     validate,
     onSubmit: async (values) => {
       console.log(values);
       try {
-        await formlogin(values)
-        navigate('/faculty')
-      } catch {
-        
-      }
+        await formlogin(values);
+        navigate('/faculty');
+      } catch {}
     },
   });
 
@@ -45,9 +43,8 @@ const FacultyLogin = () => {
     BODY.username = BODY.registrationNumber;
     try {
       let response: any = await http('POST', 'facultylogin', true, BODY);
-      console.log(response)
-      
-    } catch(err) {
+      console.log(response);
+    } catch (err) {
       throw err;
     }
   }
@@ -80,15 +77,15 @@ const FacultyLogin = () => {
               <Input
                 text='Email'
                 name='email'
-                value={formik.values.registrationNumber}
+                value={formik.values.email}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 type='text'
               />
-              {formik.touched.registrationNumber && formik.errors.registrationNumber && (
+              {formik.touched.email && formik.errors.email && (
                 <p className='text-sm flex items-center gap-1 text-red-500 mt-1'>
                   <RiErrorWarningFill />
-                  {formik.errors.registrationNumber}
+                  {formik.errors.email}
                 </p>
               )}
             </div>

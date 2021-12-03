@@ -32,6 +32,9 @@ const Register = () => {
     if (!values.contact) {
       errors.contact = 'Required';
     }
+    if (!values.fa) {
+      errors.fa = 'Required';
+    }
 
     if (!values.password) {
       errors.password = 'Required';
@@ -50,17 +53,18 @@ const Register = () => {
       contact: '',
       registrationNumber: '',
       password: '',
+      fa: '',
     },
     validate,
     onSubmit: async (values) => {
       await formsubmit(values);
     },
   });
-  async function formsubmit(BODY: any){
+  async function formsubmit(BODY: any) {
     try {
-      let response = await htttp('POST', 'signup',true, BODY);
+      let response = await htttp('POST', 'signup', true, BODY);
       console.log(response);
-    } catch(err) {
+    } catch (err) {
       console.log(err);
     }
   }
@@ -144,22 +148,46 @@ const Register = () => {
                 )}
               </div>
             </div>
-            <div className='relative'>
-              <Input
-                text='Registeration Number'
-                type='text'
-                name='registrationNumber'
-                value={formik.values.registrationNumber}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-              />
-              {formik.touched.registrationNumber &&
-                formik.errors.registrationNumber && (
+            <div className='flex gap-3'>
+              <div className='relative w-full'>
+                <Input
+                  text='Registeration Number'
+                  type='text'
+                  name='registrationNumber'
+                  value={formik.values.registrationNumber}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                />
+                {formik.touched.registrationNumber &&
+                  formik.errors.registrationNumber && (
+                    <p className='text-sm flex items-center gap-1 text-red-500 mt-1'>
+                      <RiErrorWarningFill />
+                      {formik.errors.registrationNumber}
+                    </p>
+                  )}
+              </div>
+              <div className='relative w-full'>
+                <select
+                  name='fa'
+                  value={formik.values.fa}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  className={`rounded-lg p-4 mt-6 w-full text-gray-500 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent outline-none bg-white border-2 border-border`}
+                  id='issue'
+                >
+                  <option value=''>Faculty Advisor</option>
+                  <option value='Not recieved test link'>
+                    K.C. Prabushankar
+                  </option>
+                </select>
+
+                {formik.touched.fa && formik.errors.fa && (
                   <p className='text-sm flex items-center gap-1 text-red-500 mt-1'>
                     <RiErrorWarningFill />
-                    {formik.errors.registrationNumber}
+                    {formik.errors.fa}
                   </p>
                 )}
+              </div>
             </div>
 
             <div className='flex gap-3'>
