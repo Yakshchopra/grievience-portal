@@ -6,11 +6,12 @@ import http from '../../http';
 
 const Modal = (props: any) => {
   const resolve = async () => {
+    console.log("hji")
     try {
       let regNo = localStorage.getItem('regNo');
       let response: any = await http(
         'GET',
-        'resolve/' + regNo + '/' + props.modelContent._id,
+        'resolve/' + props.modalContent.registrationNumber + '/' + props.modalContent._id,
         false
       );
       console.log(response.data);
@@ -72,7 +73,9 @@ const Modal = (props: any) => {
 
           <p className='text-sm mt-5'>{props.modalContent.description}</p>
         </div>
-
+    <span onClick={() => {
+            resolve();
+          }}> Resolve</span>
         <Button
           name='Resolve'
           size='sm'

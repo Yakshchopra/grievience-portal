@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const cors = require("cors");
 const app = express();
 const Schemas = require('./authmodel');
-const { login,create, createaccount } = require('./authfunction');
+const { login,create, createaccount, facultyLogin } = require('./authfunction');
 const { connectTodb } = require('./connection');
 
 
@@ -53,6 +53,14 @@ app.post('/signup', async (req,res) => {
             console.log(err.message);
             res.status(400).send({message:err.message});
         }
+    }
+})
+app.post('/facultylogin', async(req, res) => {
+    let body = req.body;
+    try{
+        await facultyLogin(body);
+    }catch(err){
+        res.status(401).send({message:"Invalid Credentials"})
     }
 })
 

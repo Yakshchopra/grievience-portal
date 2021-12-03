@@ -34,7 +34,12 @@ const Form = () => {
     validate,
     onSubmit: async (values) => {
       console.log(values);
-      submit(values);
+      try {
+        await submit(values);
+        alert("Form Submitted")
+      } catch (err: any) {
+        alert(err.error.message)
+      }
     },
   });
   const submit = async (body: any) => {
@@ -43,7 +48,7 @@ const Form = () => {
       let response = await http('POST', 'submitform/'+ regNo, false, body);
       return response;
     } catch (err) {
-      console.log(err);
+      throw err;
     }
   }
 

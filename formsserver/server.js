@@ -52,17 +52,17 @@ app.get('/getallgrieve',async (req,res) => {
         let response = await allgrieve();
         console.log(response)
         
-        res.send(response);
+        res.json(response);
     } catch( err ){
         res.status(400).send({message: err.message});
     }
 }) 
 
-app.get('/resolve/:regNo/:timestamp', async ( req, res) => {
+app.get('/resolve/:regNo/:_id', async ( req, res) => {
     
     let regNo = req.params.regNo;
-    let timestamp = req.params.timestamp;
-    console.log(timestamp)
+    let timestamp = req.params._id;
+    console.log(regNo, timestamp)
     try{
         await changestatus(regNo, timestamp);
         res.status(200).json({status: 'success',message: "Status Changed submitted sucessfully"});

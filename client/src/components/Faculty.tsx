@@ -109,14 +109,25 @@ const Faculty = () => {
            
           })} */}
           {allforms.map((item: any) => {
-            return (
-              <Card
-                type='faculty'
-                obj={item}
-                setModal={setModal}
-                setModalContent={setModalContent}
-              />
-            );
+            return (item.forms.map((item1: any) => {
+              if (item1.status === false) {
+                console.log(item)
+                item1.name = item.name;
+                item1.collegeEmail = item.collegeEmail;
+                item1.personalEmail = item.personalEmail;
+            
+                item1.registrationNumber = item.registrationNumber
+
+                return (
+                  <Card
+                    type='faculty'
+                    obj={item1}
+                    setModal={setModal}
+                    setModalContent={setModalContent}
+                  />
+                );
+              }
+            }))
           })}
 
           {/* Card */}

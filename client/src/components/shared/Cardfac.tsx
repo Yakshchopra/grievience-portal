@@ -4,6 +4,7 @@ import { MdOutlineError } from 'react-icons/md';
 import { AiFillCheckCircle } from 'react-icons/ai';
 
 const Card = (props: any) => {
+  console.log(props.obj)
   const [allgrive, setAllgrive] = useState([]);
   return (
     <div

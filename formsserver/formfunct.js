@@ -29,7 +29,7 @@ const retrieveform = async (registrationNumber) =>{
 const allgrieve = async () => {
         try{
          let model  = await userdb();
-        let response = await model.find().toArray();
+        let response = await model.find({"forms.status":false}).toArray();
         console.log(response)
         return response;
     } catch( err) {
@@ -37,9 +37,10 @@ const allgrieve = async () => {
     }
 }
 const changestatus = async (registrationNumber, _id) => {
+    console.log(registrationNumber, _id)
     try{
          let model  = await userdb();
-        let response = await model.update({registrationNumber: registrationNumber, "forms._id": ObjectID(_id)}, {$set:{"forms.$.status": true}});
+        let response = await model.update({"forms._id":ObjectID(_id)}, {$set:{"forms.$.status": true}});
         console.log(response)
         return response;
     } catch( err) {

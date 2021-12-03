@@ -6,8 +6,10 @@ import illustration from '../assets/illustration.svg';
 import { useFormik } from 'formik';
 import { RiErrorWarningFill } from 'react-icons/ri';
 import http from '../http';
+import { useNavigate } from 'react-router';
 
 const FacultyLogin = () => {
+  let navigate = useNavigate()
   const validate = (values: any) => {
     const errors = {} as any;
 
@@ -30,19 +32,23 @@ const FacultyLogin = () => {
     validate,
     onSubmit: async (values) => {
       console.log(values);
-      formlogin(values)
+      try {
+        await formlogin(values)
+        navigate('/faculty')
+      } catch {
+        
+      }
     },
   });
 
-  async function formlogin(BODY: any){
+  async function formlogin(BODY: any) {
+    BODY.username = BODY.registrationNumber;
     try {
-      let response: any = await http('POST', 'login', true, BODY);
+      let response: any = await http('POST', 'facultylogin', true, BODY);
       console.log(response)
       
-      localStorage.setItem('token', response.data.message.token);
-      localStorage.setItem('regNo', response.data.message.registrationNumber);
     } catch(err) {
-      console.log(err);
+      throw err;
     }
   }
   return (

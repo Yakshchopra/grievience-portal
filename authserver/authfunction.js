@@ -9,6 +9,16 @@ let generateToken = async  (username) => {
     let token = await jwt.sign(payload,'OTEMU');
     return token;
 }
+const facultyLogin = async(body) => {
+    const username = body.username;
+    const password = body.password;
+
+    if(username == process.env.username && password == process.env.password){
+        
+    }else{
+        throw new Error("Invalid Credentials")
+    }
+}
 const login = async (body) => {
     const username = body.registrationNumber;
     const password = body.password;
@@ -53,4 +63,4 @@ const createaccount = async (body) => {
         throw err;
     }
 }
-module.exports = { login, createaccount}
+module.exports = { login, createaccount, facultyLogin}
