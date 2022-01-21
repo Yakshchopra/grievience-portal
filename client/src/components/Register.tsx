@@ -71,6 +71,7 @@ const Register = () => {
         toast.error('Registration Failed');
       } else {
         toast.success('Successfully Registered!');
+        naviget('/');
       }
     } catch (err) {
       console.log(err);

@@ -3,40 +3,9 @@ import srmLogo from '../assets/srmLogo.png';
 import Card from './shared/Cardfac';
 import Modal from './shared/Modal';
 import http from '../http';
-const list = [
-  {
-    forms: [
-      {
-        companyName: 'Amazon',
-        jobTitle: 'SDE Intern',
-        issue: 'Test link not recieved',
-        description:
-          'Diya hi nahi test link mai dhoondhta reh gya aaya hi nahi',
-        time: '13 Nov 2021',
-        name: 'Yaksh Chopra',
-      },
-    ],
-    personalEmail: 'yakshchopra@gmail.com',
-    collegeEmail: 'yc3355@srmist.edu.in',
-    contact: '9419120011',
-  },
-  {
-    forms: [
-      {
-        companyName: 'Foogle',
-        jobTitle: 'CEO',
-        issue: 'Aise hi man kiya',
-        description:
-          'Diya hi nahi test link mai dhoondhta reh gya aaya hi nahi',
-        time: '13 Nov 2021',
-      },
-    ],
-    name: 'Yaksh Chopra',
-    personalEmail: 'yakshchopra@gmail.com',
-    collegeEmail: 'yc3355@srmist.edu.in',
-    contact: '9419120011',
-  },
-];
+import { useNavigate } from 'react-router-dom';
+
+const list = [] as any;
 
 const Faculty = () => {
   const [modal, setModal] = useState(false);
@@ -52,18 +21,51 @@ const Faculty = () => {
     collegeEmail: '',
   });
   const [allforms, setAllforms] = useState(list);
+  const [filtereddata, setFilteredData] = useState(allforms);
+
   const retrieveform = async () => {
     try {
       let response: any = await http('GET', 'getallgrieve', false);
       console.log(response);
       setAllforms(response.data);
+      setFilteredData(response.data);
     } catch (err) {
       console.log(err);
     }
   };
+
   useEffect(() => {
     retrieveform();
   }, []);
+
+  const search = (value_name: string, value_type?: string) => {
+    console.log(value_name);
+    let newdata = allforms.filter((item: any) => {
+      item.name.toLowerCase().includes(value_name.toLowerCase());
+    });
+    // if (value_type) {
+    //   newdata = allforms.filter((item: any) => {
+    //     item.forms.filter((item1: any) => {
+    //       item1.issue.includes(value_type);
+    //     });
+    // });
+    // }
+
+    // let mylist = [];
+    // for (let i = 0; i < newdata.length; i++) {
+    //   mylist = [];
+    //   mylist = newdata[i].forms.map((item: any) => {
+    //     if (item.issue == value_type) {
+    //       return item;
+    //     }
+    //   });
+    //   newdata[i].forms = mylist;
+    // }
+
+    setFilteredData(newdata);
+  };
+
+  let naviget = useNavigate();
 
   return (
     <div className='bg-blue-50 flex flex-col gap-4 h-screen w-screen overflow-hidden p-5'>
@@ -71,7 +73,10 @@ const Faculty = () => {
       {/* Navbar */}
       <div className='h-20 bg-darkBlue rounded-lg w-full px-5 flex justify-between items-center'>
         <img src={srmLogo} alt='srm-logo' />
-        <button className='bg-primary font-semibold focus:outline-none delay-75 ease-linear duration-100 transform hover:-translate-y-1 outline-none text-white rounded-lg px-10 py-3'>
+        <button
+          onClick={() => naviget('/facultyLogin')}
+          className='bg-primary font-semibold focus:outline-none delay-75 ease-linear duration-100 transform hover:-translate-y-1 outline-none text-white rounded-lg px-10 py-3'
+        >
           Sign Out
         </button>
       </div>
@@ -83,40 +88,37 @@ const Faculty = () => {
             <div className='absolute top-full w-full h-1 mt-1 rounded-full bg-primary'></div>
           </span>
         </div>
+        <div className='flex gap-16 bg-red-300 mt-8 p-3'>
+          <div className='bg-gray-100'>
+            <input onChange={(e) => search(e.target.value)} />
+          </div>
+          <div className='bg-gray-100'>
+            <input type='Date'></input> to <input type='Date'></input>
+          </div>
+          <div className='bg-gray-100'>
+            <select>
+              <option value=''>Select me</option>
+              <option value='Not recieved test link'>
+                Not recieved test link
+              </option>
+              <option value='Other'>Other</option>
+            </select>
+          </div>
+          <button className='bg-gray-100'>Search</button>
+        </div>
 
         <div className='mt-8 flex gap-4 flex-wrap'>
-          {/* Card */}
-          {/* <Card type='faculty' setModal={setModal} /> */}
-          {/* {allforms.map((item: any) => {
-            console.log(item)
-            return (item.forms.map((item1: any) => {
-              item.name = item1.name;
-              item.collegeEmail = item1.collegeEmail;
-              item.personalEmail = item1.personalEmail;
-              item._id = item._id;
+          {filtereddata.map((item: any) => {
+            return item.forms.map((item1: any) => {
+              console.log(item);
 
-           return (
-              <Card
-                det = {item}
-               obj={item1}
-               onClick={() => {
-                 setModalContent(item1)
-                 setModal(true)
-               }}
-              />
-            );
-        }));
-           
-          })} */}
-          {allforms.map((item: any) => {
-            return (item.forms.map((item1: any) => {
               if (item1.status === false) {
-                console.log(item)
+                console.log(item);
                 item1.name = item.name;
                 item1.collegeEmail = item.collegeEmail;
                 item1.personalEmail = item.personalEmail;
-            
-                item1.registrationNumber = item.registrationNumber
+                item1.contact = item.contact;
+                item1.registrationNumber = item.registrationNumber;
 
                 return (
                   <Card
@@ -127,7 +129,7 @@ const Faculty = () => {
                   />
                 );
               }
-            }))
+            });
           })}
 
           {/* Card */}

@@ -12,6 +12,7 @@ const Card = (props: any) => {
       }}
       className='w-56 rounded-lg flex relative flex-col justify-between gap-8 bg-light border cursor-pointer border-gray-200 p-5'
     >
+      {console.log(props.obj)}
       {props.type !== 'faculty' &&
         (!props.obj.status ? (
           <div className='absolute cursor-pointer text-red-500 left-full bottom-full transform -translate-x-1/2 translate-y-1/2'>

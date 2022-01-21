@@ -7,7 +7,7 @@ import http from '../http';
 import side from '../assets/side.png';
 import toast, { Toaster } from 'react-hot-toast';
 
-const Form = () => {
+const Form = (props: any) => {
   const validate = (values: any) => {
     const errors = {} as any;
 
@@ -38,6 +38,7 @@ const Form = () => {
       console.log(values);
       try {
         await submit(values);
+
         toast.success('Form submitted successfully!');
       } catch (err: any) {
         alert(err.error.message);

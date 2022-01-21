@@ -4,7 +4,7 @@ import { MdOutlineError } from 'react-icons/md';
 import { AiFillCheckCircle } from 'react-icons/ai';
 
 const Card = (props: any) => {
-  console.log(props.obj)
+  console.log(props.obj);
   const [allgrive, setAllgrive] = useState([]);
   return (
     <div
@@ -25,7 +25,7 @@ const Card = (props: any) => {
             <p className='text-md font-semibold'>
               {props.obj.companyName ?? ''}
             </p>
-            <p className='text-xs'>{props.obj.jobTitle ?? ''}</p>
+            <p className='text-xs'>{props.obj.name}</p>
           </div>
         </div>
 
