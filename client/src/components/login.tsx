@@ -2,14 +2,13 @@ import React, { useState } from 'react';
 import Button from './shared/Button';
 import Input from './shared/Input';
 import srmLogo from '../assets/srmLogo.png';
-import illustration from '../assets/illustration.svg';
+import ill from '../assets/ill.svg';
 import { useFormik } from 'formik';
 import { RiErrorWarningFill } from 'react-icons/ri';
 import http from '../http';
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
-  
   const validate = (values: any) => {
     const errors = {} as any;
 
@@ -39,38 +38,59 @@ const Login = () => {
       naviget('/dashboard');
     },
   });
-  const naviget = useNavigate()
-  async function formlogin(BODY: any){
+  const naviget = useNavigate();
+  async function formlogin(BODY: any) {
     try {
       let response: any = await http('POST', 'login', true, BODY);
-      console.log(response)
-      
+      console.log(response);
+
       localStorage.setItem('token', response.data.message.token);
       localStorage.setItem('regNo', response.data.message.registrationNumber);
-    } catch(err) {
+    } catch (err) {
       console.log(err);
     }
   }
 
   return (
     <div className='flex bg-light md:flex-row flex-col p-3 h-screen relative'>
-      <div className='h-20 md:hidden w-full rounded-lg bg-darkBlue flex items-center px-5'>
+      <div className='h-20 md:hidden w-full rounded-lg bg-darkBlue flex items-center justify-between px-5'>
         <img src={srmLogo} alt='srm-logo' className='h-7' />
+        <span
+          onClick={() => naviget('/facultyLogin')}
+          className='bg-primary rounded-md text-sm text-white py-2 px-3 font-medium focus:outline-none delay-75 ease-linear duration-100 transform hover:-translate-y-1 outline-none'
+        >
+          Faculty Login
+        </span>
       </div>
-      <div className='w-5/12 h-full md:block hidden rounded-lg bg-darkBlue p-8'>
-        <img src={srmLogo} alt='srm-logo' />
-        <img src={illustration} alt='hero-illustration' className='mx-auto' />
-        <div className='text-white text-center px-5 mt-12'>
+      <div className='w-5/12 h-full md:flex justify-between hidden rounded-lg flex-col bg-darkBlue p-8'>
+        <div>
+          <img
+            src={srmLogo}
+            alt='srm-logo'
+            draggable={false}
+            className='h-10'
+          />
+        </div>
+        <img
+          src={ill}
+          alt='hero-illustration'
+          draggable={false}
+          className='mx-auto lg:h-auto h-44'
+        />
+        <div className='text-white text-center lg:px-5 px-0 lg:mb-10 mb-5'>
           <p className='font-semibold text-xl text-white'>
             Placement Grievience Portal
           </p>
-          <p className='mt-3 mb-4'>
+          <p className='mt-3 lg:mb-4 mb-0'>
             Drop in all your placement related grieviences here to get them
             resolved
           </p>
-          <Button name='Faculty Login' onClick={() => {
-            naviget('/facultyLogin')
-          }}/>
+          <Button
+            name='Faculty Login'
+            onClick={() => {
+              naviget('/facultyLogin');
+            }}
+          />
         </div>
       </div>
       <div className='w-full flex h-full justify-center items-center'>
@@ -118,7 +138,14 @@ const Login = () => {
 
           <p className='mt-5'>
             Not registered yet?{' '}
-            <span className='text-primary cursor-pointer' onClick={()=>{naviget('/register')}}>Register</span>
+            <span
+              className='text-primary cursor-pointer'
+              onClick={() => {
+                naviget('/register');
+              }}
+            >
+              Register
+            </span>
           </p>
         </div>
       </div>

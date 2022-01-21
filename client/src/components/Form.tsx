@@ -3,7 +3,9 @@ import Button from './shared/Button';
 import Input from './shared/Input';
 import { useFormik } from 'formik';
 import { RiErrorWarningFill } from 'react-icons/ri';
-import http  from '../http';
+import http from '../http';
+import side from '../assets/side.png';
+import toast, { Toaster } from 'react-hot-toast';
 
 const Form = () => {
   const validate = (values: any) => {
@@ -36,25 +38,26 @@ const Form = () => {
       console.log(values);
       try {
         await submit(values);
-        alert("Form Submitted")
+        toast.success('Form submitted successfully!');
       } catch (err: any) {
-        alert(err.error.message)
+        alert(err.error.message);
       }
     },
   });
   const submit = async (body: any) => {
     try {
-      let regNo = localStorage.getItem('regNo')
-      let response = await http('POST', 'submitform/'+ regNo, false, body);
+      let regNo = localStorage.getItem('regNo');
+      let response = await http('POST', 'submitform/' + regNo, false, body);
       return response;
     } catch (err) {
       throw err;
     }
-  }
+  };
 
   return (
     <div className='mt-8'>
-      <div className='flex'>
+      <Toaster />
+      <div className='flex md:pl-12 pl-0 gap-24 justify-center'>
         <div className='flex w-full flex-col gap-3'>
           <form onSubmit={formik.handleSubmit}>
             <div className='relative'>
@@ -130,7 +133,9 @@ const Form = () => {
             <Button name='Submit' type='submit' />
           </form>
         </div>
-        <div className='w-full'></div>
+        <div className='w-full hidden sm:block'>
+          <img src={side} className='w-9/12 mx-auto' alt='' />
+        </div>
       </div>
     </div>
   );
